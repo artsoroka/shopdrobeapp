@@ -10,6 +10,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Validator; 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException; 
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;  
+
 
 class PostController extends Controller
 {
@@ -37,17 +40,16 @@ class PostController extends Controller
         ]); 
         
         if( $validator->fails() ){
-            return $this->_error($validator->errors()->all(), 400);   
+            throw new BadRequestHttpException( implode('', $validator->errors()->all()) );   
         } 
         
         $post = new App\Post(); 
         $post->user_id = $request->input('user_id');  
         $post->is_look = $request->input('is_look'); 
         
-        $post->save(); 
+        $post->save();
         
-        return $this->_success($post, 201); 
-        
+        return response()->json($post, 201); 
     }
 
     /**
@@ -61,8 +63,8 @@ class PostController extends Controller
         $post = App\Post::find($id); 
         
         if( ! $post ) 
-            return $this->_error('no post found', 404); 
-                  
+            throw new NotFoundHttpException('no post found'); 
+ 
         return response()->json($post);  
     }
 
@@ -82,20 +84,20 @@ class PostController extends Controller
         ]); 
         
         if( $validator->fails() ){
-            return $this->_error($validator->errors()->all(), 400);   
+            throw new BadRequestHttpException( implode('', $validator->errors()->all() ) );  
         } 
         
         $post = App\Post::find($id); 
         
         if( ! $post ) 
-            return $this->_error('no post found', 404); 
+            throw new NotFoundHttpException('no post found');
         
         $post->user_id = $request->input('user_id');  
         $post->is_look = $request->input('is_look'); 
         
         $post->save(); 
         
-        return $this->_success($post, 200); 
+        return response()->json($post, 200);  
         
     }
 
@@ -110,31 +112,11 @@ class PostController extends Controller
         $post = App\Post::find($id); 
         
         if( ! $post ) 
-            return $this->_error('no post found', 404); 
+            throw new NotFoundHttpException('no post found'); 
             
         $post->delete(); 
         
-        return $this->_success('post deleted', 200); 
+        return response()->json(['status' => 'post deleted'], 200); 
     } 
-    
-    private function _error($message, $status){
-        return $this->_json([
-            'err' => $message    
-        ], $status); 
-    } 
-    
-    private function _success($message, $status){
-        return $this->_json([
-            'response' => $message
-        ], $status); 
-    }
-    
-    private function _json($message, $status){
-        $response = new Response($message, $status); 
-        $response->header('Content-Type', 'application/json'); 
-    
-        return $response; 
-        
-    }
     
 }
