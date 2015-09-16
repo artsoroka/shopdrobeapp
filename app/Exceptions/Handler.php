@@ -45,13 +45,16 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         if ($e instanceof NotFoundHttpException) {
-            return response()->json(['error' => $e->getMessage()], $e->getStatusCode());
+            $message = ($e->getMessage()) 
+            ?: 'No valid route found. Go to developers.shopdrobeapp.com for api documentation'; 
+            
+            return response()->json(['error' => $message], $e->getStatusCode());
         }
-    
+
         if($e instanceof BadRequestHttpException) {
             return response()->json(['error' => $e->getMessage()], $e->getStatusCode());
         }
-                         
+                       
         if($e instanceof MethodNotAllowedHttpException) {
             return response()->json([
                 'error' => 'method not allowed'
