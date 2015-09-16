@@ -53,9 +53,13 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = App\Post::find($id); 
+        $post = App\Post::with('post_author', 'comments', 'comments.comment_author')
+                ->where('id', $id)
+                ->get(); 
         
-        if( ! $post ) 
+        //$post = App\Post::find($id); 
+        
+        if( ! $post || ! count($post) )  
             throw new NotFoundHttpException('no post found'); 
  
         return response()->json($post);  
