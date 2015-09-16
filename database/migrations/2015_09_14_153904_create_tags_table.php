@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHashTagsTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -32,6 +32,7 @@ class CreateHashTagsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('hash_tags');
+        Schema::drop('tags'); 
+        Schema::drop('post_tag'); 
     }
 }
