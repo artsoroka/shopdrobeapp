@@ -34,20 +34,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer', 
-            'is_look' => 'required|boolean'
-        ]); 
-        
-        if( $validator->fails() ){
-            throw new BadRequestHttpException( implode('', $validator->errors()->all()) );   
-        } 
-        
         $post = new App\Post(); 
         $post->user_id = $request->input('user_id');  
         $post->is_look = $request->input('is_look'); 
         
-        $post->save();
+        if( ! $post->save() ){
+            throw new BadRequestHttpException( $post->getErrors() );   
+        }
         
         return response()->json($post, 201); 
     }
@@ -78,15 +71,6 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
 
-        $validator = Validator::make( $request->all(), [
-            'user_id' => 'required|integer', 
-            'is_look' => 'required|boolean'
-        ]); 
-        
-        if( $validator->fails() ){
-            throw new BadRequestHttpException( implode('', $validator->errors()->all() ) );  
-        } 
-        
         $post = App\Post::find($id); 
         
         if( ! $post ) 
@@ -95,7 +79,8 @@ class PostController extends Controller
         $post->user_id = $request->input('user_id');  
         $post->is_look = $request->input('is_look'); 
         
-        $post->save(); 
+        if ( ! $post->save() )
+            throw new BadRequestHttpException( $post->getErrors() ); 
         
         return response()->json($post, 200);  
         
