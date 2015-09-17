@@ -58,6 +58,10 @@ class Post extends Model
         return $this->hasMany('App\Brand'); 
     }
     
+    public function look(){
+        return $this->hasOne('App\Look');  
+    }
+    
     public function tags(){
         return $this->belongsToMany('App\Tag'); 
     } 

@@ -50,9 +50,9 @@ class UserController extends Controller
         if( ! $looks || ! count($looks) ) 
             throw new NotFoundHttpException("user don't have any posts looks"); 
         
-        return response()->json($posts); 
+        return response()->json($looks); 
     }
-        
+     
     /**
      * Display all comments by User 
      *
@@ -63,12 +63,11 @@ class UserController extends Controller
         if( ! App\User::find($userId) )
             throw new NotFoundHttpException('no user found'); 
             
-        $posts = App\Comment::where('user_id', $userId)->get(); 
+        $comments = App\Comment::where('user_id', $userId)->get(); 
         
-        if( ! $posts || ! count($posts) ) 
-            throw new NotFoundHttpException("user don't have any posts comments"); 
+        if( ! $comments || ! count($comments) ) 
+            throw new NotFoundHttpException("user haven't commented any post yet");  
         
-        return response()->json($posts); 
+        return response()->json($comments); 
     }
-
 }
