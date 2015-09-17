@@ -41,6 +41,7 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
+        Schema::drop('photos'); 
         Schema::drop('posts');
     }
 }
