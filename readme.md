@@ -1,4 +1,5 @@
-### API endpoints
+## API endpoints
+
 |request   | url  | desctiption  |
 |---|---|---|
 | ```GET```  | /users/{userId}/posts  | Display all posts by User |
@@ -10,7 +11,14 @@
 | ```PUT``` | /posts/{postId} | Update Post by id | 
 | ```DELETE``` | /posts/{postId} | Delete Post by id |
 
-### Installation
+### Relationship 
+
+|request   | url  | desctiption  |
+|---|---|---|
+| ```GET```  | /users/{userId}/followers  | Shows who is following the User |
+| ```GET```  | /users/{userId}/following  | Display user's subscriptions | 
+
+## Installation
 
 You will need PHP 5.5.9 and Composer installed in your system 
 
