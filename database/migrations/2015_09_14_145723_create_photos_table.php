@@ -14,10 +14,12 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('post_id')->unsigned(); 
             $table->string('name'); 
             $table->string('url'); 
             $table->timestamps();
         });
+
     }
 
     /**

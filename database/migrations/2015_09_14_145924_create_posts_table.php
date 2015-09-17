@@ -27,6 +27,10 @@ class CreatePostsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users'); 
             $table->foreign('location_id')->references('id')->on('locations'); 
         }); 
+                
+        Schema::table('photos', function($table) { 
+            $table->foreign('post_id')->references('id')->on('posts'); 
+        }); 
 
     }
 

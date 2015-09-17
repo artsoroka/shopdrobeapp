@@ -49,7 +49,9 @@ class Post extends Model
     public function location(){
         return $this->belongsTo('App\Location'); 
     }
-    
+    public function photos(){
+        return $this->hasMany('App\Photo'); 
+    }
     public function tags(){
         return $this->belongsToMany('App\Tag'); 
     } 
