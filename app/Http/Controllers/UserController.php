@@ -22,12 +22,51 @@ class UserController extends Controller
         if( ! App\User::find($userId) )
             throw new NotFoundHttpException('no user found'); 
             
-        $posts = App\Post::with(['location', 'post_author', 'comments', 'comments.comment_author'])
+        $posts = App\Post::with(['location', 'brands', 'look', 'post_author', 'comments', 'comments.comment_author'])
                 ->where('user_id', $userId)
                 ->get(); 
         
         if( ! $posts || ! count($posts) ) 
             throw new NotFoundHttpException("user don't have any posts yet"); 
+        
+        return response()->json($posts); 
+    }
+    
+    /**
+     * Display all looks by User 
+     *
+     * @return Response
+     */
+    public function looks($userId){
+        
+        if( ! App\User::find($userId) )
+            throw new NotFoundHttpException('no user found'); 
+            
+        $looks = App\Post::with(['location', 'brands', 'look', 'post_author', 'comments', 'comments.comment_author'])
+                ->where('user_id', $userId)
+                ->where('is_look', true)
+                ->get(); 
+        
+        if( ! $looks || ! count($looks) ) 
+            throw new NotFoundHttpException("user don't have any posts looks"); 
+        
+        return response()->json($posts); 
+    }
+        
+    /**
+     * Display all comments by User 
+     *
+     * @return Response
+     */
+    public function comments($userId){
+        
+        if( ! App\User::find($userId) )
+            throw new NotFoundHttpException('no user found'); 
+            
+        $posts = App\Comment::where('user_id', $userId)->get(); 
+        
+        if( ! $posts || ! count($posts) ) 
+            throw new NotFoundHttpException("user don't have any posts comments"); 
         
         return response()->json($posts); 
     }

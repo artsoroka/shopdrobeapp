@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call(LocationTableSeeder::class);
         $this->call(PostTableSeeder::class);
         $this->call(CommentTableSeeder::class);
-        $this->call(BrandTableSeeder::class);
+        $this->call(BrandTableSeeder::class); 
+        $this->call(LookTableSeeder::class); 
+        
         Model::reguard();
     }
 }

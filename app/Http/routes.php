@@ -16,5 +16,6 @@ Route::get('/', function () {
 });
 
 Route::get('/users/{userId}/posts', 'UserController@posts'); 
+Route::get('/users/{userId}/looks', 'UserController@looks'); 
 
 Route::resource('posts', 'PostController');  

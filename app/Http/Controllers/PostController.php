@@ -23,7 +23,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return App\Post::with(['user', 'location', 'photos', 'brands'])->get(); 
+        return App\Post::with(['user', 'location', 'photos', 'brands', 'look'])->get(); 
     }
     
     /**
@@ -53,7 +53,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = App\Post::with(['location', 'post_author', 'comments', 'comments.comment_author'])
+        $post = App\Post::with(['location', 'photos', 'brands', 'look', 'post_author', 'comments', 'comments.comment_author'])
                 ->where('id', $id)
                 ->get(); 
         
