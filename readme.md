@@ -1,27 +1,55 @@
-## Laravel PHP Framework
+### API endpoints
+|request   | url  | desctiption  |
+|---|---|---|
+| ```GET```  | /users/{userId}/posts  | Display all posts by User |
+| ```GET``` | /posts | Show all Posts |
+| ```GET``` | /posts/{postId} | View specific Post with Comments |
+| ```POST``` | /posts | Create new Post |
+| ```PUT``` | /posts/{postId} | Update Post by id | 
+| ```DELETE``` | /posts/{postId} | Delete Post by id |
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+### Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+You will need PHP 5.5.9 and Composer installed in your system 
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
-## Official Documentation
+```sh
+$ git clone https://github.com/artsoroka/shopdrobeapp
+$ cd shopdrobeapp 
+$ composer install
+```
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+To set up database connection you can edit ```app/config/database.php``` file directly or use .env file like this 
 
-## Contributing
+```
+APP_ENV=local
+APP_DEBUG=true
+APP_KEY=KEmdPKgL1rZ23TwTVWlPXRiTkYHJSSUn
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+DB_HOST=localhost
+DB_DATABASE=shopdrobeapp
+DB_USERNAME=admin
+DB_PASSWORD=password
 
-## Security Vulnerabilities
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+QUEUE_DRIVER=sync
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+MAIL_DRIVER=smtp
+MAIL_HOST=mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+```
 
-### License
+First, install migrations with ```artisan```  
+```sh 
+$ php artisan migrate:install
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Load tables in database and sample data by running  
+
+```sh
+$ php artisan migrate:refresh --seed 
+```
