@@ -63,7 +63,9 @@ class UserController extends Controller
         if( ! App\User::find($userId) )
             throw new NotFoundHttpException('no user found'); 
             
-        $comments = App\Comment::where('user_id', $userId)->get(); 
+        $comments = App\Comment::with('post', 'post.post_author')
+                    ->where('user_id', $userId)
+                    ->get(); 
         
         if( ! $comments || ! count($comments) ) 
             throw new NotFoundHttpException("user haven't commented any post yet");  
