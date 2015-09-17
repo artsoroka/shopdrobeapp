@@ -23,7 +23,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return App\Post::with(['user', 'location', 'photos'])->get(); 
+        return App\Post::with(['user', 'location', 'photos', 'brands'])->get(); 
     }
     
     /**
