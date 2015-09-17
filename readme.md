@@ -2,6 +2,8 @@
 |request   | url  | desctiption  |
 |---|---|---|
 | ```GET```  | /users/{userId}/posts  | Display all posts by User |
+| ```GET```  | /users/{userId}/looks  | Show user's looks | 
+| ```GET```  | /users/{userId}/comments | View all comments by User |
 | ```GET``` | /posts | Show all Posts |
 | ```GET``` | /posts/{postId} | View specific Post with Comments |
 | ```POST``` | /posts | Create new Post |
