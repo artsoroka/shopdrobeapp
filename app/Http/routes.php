@@ -19,4 +19,7 @@ Route::get('/users/{userId}/posts', 'UserController@posts');
 Route::get('/users/{userId}/looks', 'UserController@looks'); 
 Route::get('/users/{userId}/comments', 'UserController@comments'); 
 
+Route::get('/users/{userId}/followers', 'UserController@followers'); 
+Route::get('/users/{userId}/following', 'UserController@following'); 
+
 Route::resource('posts', 'PostController');  

@@ -20,6 +20,13 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('followers', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned(); 
+            $table->integer('followed_by')->unsigned(); 
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -29,6 +36,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::drop('followers'); 
         Schema::drop('users');
     }
 }
