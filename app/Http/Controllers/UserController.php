@@ -27,10 +27,7 @@ class UserController extends Controller
         $posts = App\Post::with(['location', 'brands', 'look', 'photos', 'post_author', 'comments', 'comments.comment_author'])
                 ->where('user_id', $userId)
                 ->get(); 
-        
-        if( ! $posts || ! count($posts) ) 
-            throw new NotFoundHttpException("user don't have any posts yet"); 
-        
+
         return response()->json($posts); 
     }
     
@@ -49,9 +46,6 @@ class UserController extends Controller
                 ->where('is_look', true)
                 ->get(); 
         
-        if( ! $looks || ! count($looks) ) 
-            throw new NotFoundHttpException("user don't have any posts looks"); 
-        
         return response()->json($looks); 
     }
      
@@ -68,9 +62,6 @@ class UserController extends Controller
         $comments = App\Comment::with('post', 'post.post_author')
                     ->where('user_id', $userId)
                     ->get(); 
-        
-        if( ! $comments || ! count($comments) ) 
-            throw new NotFoundHttpException("user haven't commented any post yet");  
         
         return response()->json($comments); 
     }
