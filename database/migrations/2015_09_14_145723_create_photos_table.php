@@ -14,9 +14,14 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('post_id')->unsigned(); 
             $table->string('name'); 
             $table->string('url'); 
+            $table->timestamps();
+        });
+        
+        Schema::create('photo_post', function (Blueprint $table) {
+            $table->integer('post_id')->unsigned(); 
+            $table->integer('photo_id')->unsigned(); 
             $table->timestamps();
         });
 
@@ -29,6 +34,7 @@ class CreatePhotosTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('photo_post');
         Schema::dropIfExists('photos');
     }
 }

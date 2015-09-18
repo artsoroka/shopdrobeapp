@@ -51,7 +51,7 @@ class Post extends Model
     }
     
     public function photos(){
-        return $this->hasMany('App\Photo'); 
+        return $this->belongsToMany('App\Photo'); 
     }
     
     public function brands(){

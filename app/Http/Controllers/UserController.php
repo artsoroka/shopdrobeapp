@@ -24,7 +24,7 @@ class UserController extends Controller
         if( ! App\User::find($userId) )
             throw new NotFoundHttpException('no user found'); 
             
-        $posts = App\Post::with(['location', 'brands', 'look', 'post_author', 'comments', 'comments.comment_author'])
+        $posts = App\Post::with(['location', 'brands', 'look', 'photos', 'post_author', 'comments', 'comments.comment_author'])
                 ->where('user_id', $userId)
                 ->get(); 
         
