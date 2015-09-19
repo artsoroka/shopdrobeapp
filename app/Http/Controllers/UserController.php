@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App; 
+use App\User; 
+use App\Post; 
+use App\Comment; 
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -21,7 +25,7 @@ class UserController extends Controller
      */
     public function posts($userId){
         
-        if( ! App\User::find($userId) )
+        if( ! User::find($userId) )
             throw new NotFoundHttpException('no user found'); 
             
         $posts = App\Post::with(['location', 'brands', 'look', 'photos', 'post_author', 'comments', 'comments.comment_author'])
@@ -38,10 +42,10 @@ class UserController extends Controller
      */
     public function looks($userId){
         
-        if( ! App\User::find($userId) )
+        if( ! User::find($userId) )
             throw new NotFoundHttpException('no user found'); 
             
-        $looks = App\Post::with(['location', 'brands', 'look', 'post_author', 'comments', 'comments.comment_author'])
+        $looks = Post::with(['location', 'brands', 'look', 'post_author', 'comments', 'comments.comment_author'])
                 ->where('user_id', $userId)
                 ->where('is_look', true)
                 ->get(); 
@@ -56,10 +60,10 @@ class UserController extends Controller
      */
     public function comments($userId){
         
-        if( ! App\User::find($userId) )
+        if( ! User::find($userId) )
             throw new NotFoundHttpException('no user found'); 
             
-        $comments = App\Comment::with('post', 'post.post_author')
+        $comments = Comment::with('post', 'post.post_author')
                     ->where('user_id', $userId)
                     ->get(); 
         
@@ -73,7 +77,7 @@ class UserController extends Controller
      */
     public function followers($userId){
                 
-        if( ! App\User::find($userId) )
+        if( ! User::find($userId) )
             throw new NotFoundHttpException('no user found'); 
         
         $followers = DB::table('followers')
@@ -92,7 +96,7 @@ class UserController extends Controller
      */
     public function following($userId){
         
-        if( ! App\User::find($userId) )
+        if( ! User::find($userId) )
             throw new NotFoundHttpException('no user found'); 
         
         $following = DB::table('followers')

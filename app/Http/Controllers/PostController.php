@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response; 
 
-use App; 
+use App;
+use App\Post; 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -23,7 +24,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return App\Post::with(['user', 'location', 'photos', 'brands', 'look'])->get(); 
+        return Post::with(['user', 'location', 'photos', 'brands', 'look'])->get(); 
     }
     
     /**
@@ -34,7 +35,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new App\Post(); 
+        $post = new Post(); 
         $post->user_id = $request->input('user_id');  
         $post->is_look = $request->input('is_look'); 
         
@@ -53,7 +54,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = App\Post::with(['location', 'photos', 'brands', 'look', 'post_author', 'comments', 'comments.comment_author'])
+        $post = Post::with(['location', 'photos', 'brands', 'look', 'post_author', 'comments', 'comments.comment_author'])
                 ->where('id', $id)
                 ->get(); 
         
@@ -73,7 +74,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
 
-        $post = App\Post::find($id); 
+        $post = Post::find($id); 
         
         if( ! $post ) 
             throw new NotFoundHttpException('no post found');
@@ -96,7 +97,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = App\Post::find($id); 
+        $post = Post::find($id); 
         
         if( ! $post ) 
             throw new NotFoundHttpException('no post found'); 
